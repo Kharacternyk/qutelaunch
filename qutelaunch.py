@@ -9,7 +9,8 @@ class WebHistory:
         if not history_db_path:
             data_dir = getenv("XDG_DATA_HOME", getenv("HOME") + "/.local/share")
             history_db_path = data_dir + "/qutebrowser/history.sqlite"
-        self._db = sqlite3.connect(history_db_path).cursor()
+        uri = f"file:{history_db_path}?mode=ro"
+        self._db = sqlite3.connect(uri, uri=True).cursor()
 
     @property
     def most_common_domains(self):
