@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Qutelauch</title>
+  </head>
+  <body>
+    <ul class=site-list>
+    {% for item in most_common_domains %}
+      <li><a href="https://{{ item }}">{{item}}</a></li>
+    {% endfor %}
+    </ul>
+  </body>
+</html>
