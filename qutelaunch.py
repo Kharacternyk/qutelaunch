@@ -16,12 +16,12 @@ class WebHistory:
         self._db = sqlite3.connect(uri, uri=True).cursor()
 
     @property
-    def domains_counter(self):
+    def websites_counter(self):
         query = "SELECT url FROM history"
         urls = (row[0] for row in self._db.execute(query))
-        domains = (urlparse(url).netloc for url in urls)
-        domains_counter = Counter(domains)
-        return domains_counter
+        websites = (urlparse(url).netloc + urlparse(url).path for url in urls)
+        websites_counter = Counter(websites)
+        return websites_counter
 
 
 class Renderer:
@@ -39,11 +39,11 @@ class Renderer:
 def main():
     web_history = WebHistory()
     renderer = Renderer()
-    most_common_domains = [
-        domain for domain, hits in web_history.domains_counter.most_common(20)
+    most_common_websites = [
+        website for website, hits in web_history.websites_counter.most_common(20)
     ]
     qutelaunch_html = renderer.render(
-        "qutelaunch.html", most_common_domains=most_common_domains
+        "qutelaunch.html", most_common_websites=most_common_websites
     )
     print(qutelaunch_html)
 
