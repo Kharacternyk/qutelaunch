@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import sqlite3
 from collections import Counter
 from os import getenv
@@ -15,7 +16,7 @@ class WebHistory:
         self._db = sqlite3.connect(uri, uri=True).cursor()
 
     @property
-    def most_common_domains(self):
+    def domains_counter(self):
         query = "SELECT url FROM history"
         urls = (row[0] for row in self._db.execute(query))
         domains = (urlparse(url).netloc for url in urls)
@@ -33,3 +34,19 @@ class Renderer:
         template = self._jinja.get_template(template_file_name)
         result = template.render(**kwargs)
         return result
+
+
+def main():
+    web_history = WebHistory()
+    renderer = Renderer()
+    most_common_domains = [
+        domain for domain, hits in web_history.domains_counter.most_common(20)
+    ]
+    qutelaunch_html = renderer.render(
+        "qutelaunch.html", most_common_domains=most_common_domains
+    )
+    print(qutelaunch_html)
+
+
+if __name__ == "__main__":
+    main()
