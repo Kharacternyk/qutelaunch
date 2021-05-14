@@ -1,17 +1,13 @@
 import sqlite3
 from collections import Counter
-from os import getenv
 from urllib.parse import urlparse
 
 from qutelaunch.webpage import WebPage
 
 
 class WebHistory:
-    def __init__(self, history_db_path: str = None):
-        if not history_db_path:
-            data_dir = getenv("XDG_DATA_HOME", getenv("HOME") + "/.local/share")
-            history_db_path = data_dir + "/qutebrowser/history.sqlite"
-        uri = f"file:{history_db_path}?mode=ro"
+    def __init__(self, path_manager):
+        uri = f"file:{path_manager.qutebrowser_history_db}?mode=ro"
         self._db = sqlite3.connect(uri, uri=True).cursor()
 
     @property
