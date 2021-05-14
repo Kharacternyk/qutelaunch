@@ -42,9 +42,9 @@ class WebHistory:
 
 
 class Renderer:
-    def __init__(self, templates_dir_path: str = "."):
+    def __init__(self):
         self._jinja = jinja2.Environment(
-            loader=jinja2.FileSystemLoader(templates_dir_path)
+            loader=jinja2.PackageLoader("qutelaunch", "templates")
         )
 
     def render(self, template_file_name, **kwargs):
