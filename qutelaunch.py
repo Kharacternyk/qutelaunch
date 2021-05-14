@@ -3,6 +3,7 @@ import sqlite3
 from collections import Counter
 from os import getenv
 from urllib.parse import urlparse
+from urllib.parse import urlunparse
 
 import jinja2
 
@@ -19,8 +20,12 @@ class WebHistory:
     def websites_counter(self):
         query = "SELECT url FROM history"
         urls = (row[0] for row in self._db.execute(query))
-        websites = (urlparse(url).netloc + urlparse(url).path for url in urls)
-        websites_counter = Counter(websites)
+        websites_counter = Counter()
+        for url in urls:
+            scheme, netloc, path, params, query, fragment = urlparse(url)
+            if not query:
+                stripped_url = (scheme, netloc, path, "", "", "")
+                websites_counter.update([urlunparse(stripped_url)])
         return websites_counter
 
 
