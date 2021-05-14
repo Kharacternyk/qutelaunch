@@ -1,6 +1,8 @@
 { pkgs ? import <nixpkgs> { } }:
 
-pkgs.mkShell {
+pkgs.python3Packages.buildPythonPackage {
+  name = "qutelaunch";
+  src = ./.;
   propagatedBuildInputs = with pkgs; [
     python3Packages.jinja2
   ];
