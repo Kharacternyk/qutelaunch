@@ -25,7 +25,7 @@ class WebHistory:
             scheme, netloc, path, params, query, fragment = urlparse(url)
             if not query:
                 stripped_url = (scheme, netloc, path, "", "", "")
-                websites_counter.update([urlunparse(stripped_url)])
+                websites_counter[urlunparse(stripped_url)] += 1
         return websites_counter
 
 
@@ -44,9 +44,9 @@ class Renderer:
 def main():
     web_history = WebHistory()
     renderer = Renderer()
-    most_common_websites = [
+    most_common_websites = (
         website for website, hits in web_history.websites_counter.most_common(20)
-    ]
+    )
     qutelaunch_html = renderer.render(
         "qutelaunch.html", most_common_websites=most_common_websites
     )
