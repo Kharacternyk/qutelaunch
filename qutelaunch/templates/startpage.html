@@ -2,9 +2,12 @@
 <html>
   <head>
     <title>Qutelauch</title>
+  <style>
+    {% include "styles.css" %}
+  </style>
   </head>
   <body>
-    <ul class=site-list>
+    <ul class=most-common-webpages-list>
     {% for webpage in most_common_webpages %}
       <li>
         <img src="{{webpage.scheme}}://{{webpage.netloc}}/favicon.ico" width=16 height=16>

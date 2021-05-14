@@ -1,0 +1,11 @@
+body {
+  font-family: sans-serif;
+}
+
+.most-common-webpages-list {
+  list-style: none;
+}
+
+.most-common-webpages-list a {
+  text-decoration: none;
+}
