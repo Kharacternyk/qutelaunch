@@ -1,11 +1,24 @@
 #!/usr/bin/env python
 import sqlite3
 from collections import Counter
+from dataclasses import dataclass
 from os import getenv
 from urllib.parse import urlparse
 from urllib.parse import urlunparse
 
 import jinja2
+
+
+@dataclass(frozen=True)
+class WebPage:
+    scheme: str
+    netloc: str
+    path: str
+
+    @property
+    def url(self):
+        blocks = (self.scheme, self.netloc, self.path, "", "", "")
+        return urlunparse(blocks)
 
 
 class WebHistory:
@@ -17,16 +30,15 @@ class WebHistory:
         self._db = sqlite3.connect(uri, uri=True).cursor()
 
     @property
-    def websites_counter(self):
+    def webpages(self):
         query = "SELECT url FROM history"
         urls = (row[0] for row in self._db.execute(query))
-        websites_counter = Counter()
+        webpages = Counter()
         for url in urls:
             scheme, netloc, path, params, query, fragment = urlparse(url)
             if not query:
-                stripped_url = (scheme, netloc, path, "", "", "")
-                websites_counter[urlunparse(stripped_url)] += 1
-        return websites_counter
+                webpages[WebPage(scheme, netloc, path)] += 1
+        return webpages
 
 
 class Renderer:
@@ -44,11 +56,11 @@ class Renderer:
 def main():
     web_history = WebHistory()
     renderer = Renderer()
-    most_common_websites = (
-        website for website, hits in web_history.websites_counter.most_common(20)
+    most_common_webpages = (
+        webpage for webpage, hits in web_history.webpages.most_common(20)
     )
     qutelaunch_html = renderer.render(
-        "qutelaunch.html", most_common_websites=most_common_websites
+        "qutelaunch.html", most_common_webpages=most_common_webpages
     )
     print(qutelaunch_html)
 
