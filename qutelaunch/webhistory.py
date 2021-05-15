@@ -6,8 +6,8 @@ from qutelaunch.webpage import WebPage
 
 
 class WebHistory:
-    def __init__(self, path_manager):
-        uri = f"file:{path_manager.qutebrowser_history_db}?mode=ro"
+    def __init__(self, history_db_path):
+        uri = f"file:{history_db_path}?mode=ro"
         self._db = sqlite3.connect(uri, uri=True).cursor()
 
     @property
