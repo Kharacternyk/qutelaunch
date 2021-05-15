@@ -9,4 +9,5 @@ setup(
     tests_require=["pytest", "hypothesis"],
     url="https://github.com/Kharacternyk/qutelaunch",
     packages=find_packages(),
+    package_data={"qutelaunch": ["templates/*"]},
 )
