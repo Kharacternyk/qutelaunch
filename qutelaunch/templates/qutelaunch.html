@@ -10,7 +10,10 @@
     <ul class=most-common-webpages-list>
     {% for webpage in most_common_webpages %}
       <li>
-        <img src="{{webpage.scheme}}://{{webpage.netloc}}/favicon.ico" width=16 height=16>
+        <img
+          src="https://external-content.duckduckgo.com/ip3/{{webpage.netloc}}.ico"
+          width=16 height=16
+        >
         <a href="{{webpage.url}}">{{webpage.url}}</a>
       </li>
     {% endfor %}
