@@ -2,10 +2,10 @@ body {
   font-family: sans-serif;
 }
 
-.most-common-webpages-list {
+.relevant-urls-list {
   list-style: none;
 }
 
-.most-common-webpages-list a {
+.relevant-urls-list a {
   text-decoration: none;
 }
