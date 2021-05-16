@@ -8,13 +8,14 @@
   </head>
   <body>
     <ul class=most-common-webpages-list>
-    {% for webpage in most_common_webpages %}
+    {% for url in relevant_urls %}
       <li>
         <img
-          src="https://external-content.duckduckgo.com/ip3/{{webpage.netloc}}.ico"
+          src="https://external-content.duckduckgo.com/ip3/{{url.netloc}}.ico"
           width=16 height=16
         >
-        <a href="{{webpage.url}}">{{webpage.url}}</a>
+        {% set url_string = url.geturl() %}
+        <a href="{{url_string}}">{{url_string}}</a>
       </li>
     {% endfor %}
     </ul>
