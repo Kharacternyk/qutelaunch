@@ -1,6 +1,8 @@
 from .renderer import Renderer
 from .webhistory import WebHistory
 
+__all__ = ["init"]
+
 
 def init(config, c):
     renderer = Renderer()
