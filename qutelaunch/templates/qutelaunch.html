@@ -2,9 +2,9 @@
 <html>
   <head>
     <title>Qutelauch</title>
-  <style>
-    {% include "styles.css" %}
-  </style>
+    <style>
+{% include "styles.css" %}
+    </style>
   </head>
   <body>
     <ul class=most-common-webpages-list>
@@ -14,7 +14,7 @@
           src="https://external-content.duckduckgo.com/ip3/{{url.netloc}}.ico"
           width=16 height=16
         >
-        {% set url_string = url.geturl() %}
+        {% set url_string = url.geturl() -%}
         <a href="{{url_string}}">{{url_string}}</a>
       </li>
     {% endfor %}
