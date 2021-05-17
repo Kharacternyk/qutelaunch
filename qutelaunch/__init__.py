@@ -1,6 +1,6 @@
 from .relevance import get_relevant_urls
 from .renderer import Renderer
-from .webhistory import WebHistory
+from .web_history import WebHistory
 
 __all__ = ["init"]
 
