@@ -7,7 +7,7 @@ class WebHistory:
         self._db = sqlite3.connect(uri, uri=True).cursor()
 
     @property
-    def urls(self):
+    def url_strings(self):
         query = "SELECT url FROM history"
-        urls = (row[0] for row in self._db.execute(query))
-        return urls
+        url_strings = (row[0] for row in self._db.execute(query))
+        return url_strings
