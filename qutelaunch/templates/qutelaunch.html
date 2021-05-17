@@ -10,10 +10,15 @@
     <ul class=relevant-urls-list>
     {% for url in relevant_urls %}
       <li>
+      {% if url.scheme == "file" %}
+        {# TODO a file icon #}
+        <img width=16 height=16>
+      {% else %}
         <img
           src="https://external-content.duckduckgo.com/ip3/{{url.netloc}}.ico"
           width=16 height=16
         >
+      {% endif %}
         {% set url_string = url.geturl() -%}
         <a href="{{url_string}}">{{url_string}}</a>
       </li>
