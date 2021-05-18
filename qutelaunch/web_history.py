@@ -8,9 +8,9 @@ class WebHistory:
         uri = f"file:{history_db_path}?mode=ro"
         self._db = sqlite3.connect(uri, uri=True).cursor()
 
-    def get_most_visited_urls(self, n):
-        query = "SELECT url FROM history"
-        url_strings = (row[0] for row in self._db.execute(query))
+    def get_most_visited_urls(self, n, *, newer_than=0):
+        query = "SELECT url FROM history WHERE atime > ?"
+        url_strings = (row[0] for row in self._db.execute(query, (newer_than,)))
         counter = Counter()
         for url_string in url_strings:
             url = urlparse(url_string)
