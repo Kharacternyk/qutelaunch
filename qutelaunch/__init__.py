@@ -1,5 +1,6 @@
 from time import time
 
+from .bookmarks import Bookmarks
 from .renderer import Renderer
 from .web_history import WebHistory
 
@@ -9,6 +10,7 @@ __all__ = ["init"]
 def init(config, c, list_length=20):
     renderer = Renderer()
     web_history = WebHistory(config.datadir / "history.sqlite")
+    bookmarks = Bookmarks(config.configdir / "bookmarks" / "urls")
 
     seconds_in_week = 60 * 60 * 24 * 7
     week_ago = time() - seconds_in_week
@@ -21,6 +23,7 @@ def init(config, c, list_length=20):
         "qutelaunch.html",
         most_visited_urls=most_visited_urls,
         weekly_highlights_urls=weekly_highlights_urls,
+        bookmarks_urls=bookmarks.urls,
     )
 
     with open(config.datadir / "qutelaunch.html", "w") as f:
