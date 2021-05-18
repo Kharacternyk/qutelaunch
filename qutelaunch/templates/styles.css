@@ -1,11 +1,15 @@
 body {
-  font-family: sans-serif;
+  font-family: monospace;
 }
 
-.relevant-urls-list {
+.list-container {
+  display: flex;
+}
+
+.list-container ul {
   list-style: none;
 }
 
-.relevant-urls-list a {
+.list-container ul a {
   text-decoration: none;
 }
