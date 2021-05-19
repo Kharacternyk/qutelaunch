@@ -7,6 +7,7 @@
     </style>
   </head>
   <body>
+    <div class=vertical-placeholder></div>
     <div class=list-container>
       {% macro make_list(urls) -%}
         {% for url in urls %}
@@ -37,5 +38,6 @@
         {{ make_list(bookmarks_urls) }}
       </ul>
     </div>
+    <div class=vertical-placeholder></div>
   </body>
 </html>
