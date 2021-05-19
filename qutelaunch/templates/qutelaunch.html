@@ -29,12 +29,15 @@
         {% endfor %}
       {%- endmacro %}
       <ul class=weekly-highlights-list>
+        <h2> Weekly Highlights </h2>
         {{ make_list(weekly_highlights_urls) }}
       </ul>
       <ul class=most-visited-list>
+        <h2> Most Visited </h2>
         {{ make_list(most_visited_urls) }}
       </ul>
       <ul class=bookmarks-list>
+        <h2> Bookmarks </h2>
         {{ make_list(bookmarks_urls) }}
       </ul>
     </div>

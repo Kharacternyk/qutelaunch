@@ -8,9 +8,15 @@ html, body {
 body {
   font-family: monospace;
   background-color: {{ color_scheme.background }};
+  color: {{ color_scheme.foreground }};
   margin: 0;
   display: flex;
   flex-direction: column;
+}
+
+h2 {
+  font-style: italic;
+  color: {{ color_scheme.section_header }};
 }
 
 .vertical-placeholder {
