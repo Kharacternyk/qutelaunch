@@ -8,12 +8,13 @@ class WebHistory:
         uri = f"file:{history_db_path}?mode=ro"
         self._db = sqlite3.connect(uri, uri=True).cursor()
 
-    def get_most_visited_urls(self, n, *, newer_than=0):
+    def get_most_visited_urls(self, n, *, exclude_regexes=(), newer_than=0):
         query = "SELECT url FROM history WHERE atime > ?"
         url_strings = (row[0] for row in self._db.execute(query, (newer_than,)))
         counter = Counter()
         for url_string in url_strings:
-            url = urlparse(url_string)
-            counter[url] += 1
+            if not any(regex.fullmatch(url_string) for regex in exclude_regexes):
+                url = urlparse(url_string)
+                counter[url] += 1
         n_most_visited = (url for url, hits in counter.most_common(n))
         return n_most_visited
