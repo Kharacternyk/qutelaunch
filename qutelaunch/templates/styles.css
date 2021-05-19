@@ -4,14 +4,13 @@ body {
 }
 
 .list-container {
-  padding: 3%;
+  padding: 0;
   margin: 0;
-  width: 94%;
   display: flex;
 }
 
 .list-container ul {
-  padding: 0;
+  padding: 3%;
   margin: 0;
   min-width: 0;
   flex: 1 1 0;
@@ -19,7 +18,7 @@ body {
 }
 
 .list-container ul + ul {
-  padding-left: 3%;
+  padding-left: 0;
 }
 
 .list-container ul li {
