@@ -9,7 +9,7 @@ from .web_history import WebHistory
 __all__ = ["init"]
 
 
-def init(config, c, list_length=20, color_scheme=ColorScheme(), exclude_patterns=()):
+def init(config, c, *, list_length=20, color_scheme=ColorScheme(), exclude_patterns=()):
     renderer = Renderer()
     web_history = WebHistory(config.datadir / "history.sqlite")
     bookmarks = Bookmarks(config.configdir / "bookmarks" / "urls")
