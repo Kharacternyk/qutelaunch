@@ -12,6 +12,7 @@ body {
 
   font-family: monospace;
   background-color: {{color_scheme.background}};
+  color: {{color_scheme.foreground}};
 }
 
 .vertical-placeholder {
@@ -43,30 +44,48 @@ body {
   text-overflow: ellipsis;
 }
 
-.entry-container {
+.url-container {
   display: flex;
 }
 
-.url-container {
-  flex: 1 1 auto;
+.url-container div {
+  flex: 0 0 auto;
   min-width: 0;
-
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.url-container a {
-  text-decoration: none;
-  color: {{color_scheme.foreground}};
-}
-
-.favicon-container {
-  flex: 0 0 auto;
+.url-container .favicon {
   background-color: {{color_scheme.foreground}};
 }
 
-.favicon-container a {
+.url-container .favicon a {
   text-decoration: none;
   vertical-align: top;
+}
+
+.url-container .scheme {
+  margin-left: 2%;
+  flex-shrink: 1;
+}
+
+.url-container .netloc {
+  flex-shrink: 1;
+}
+
+.url-container .path {
+  flex-shrink: 1;
+}
+
+.url-container .parameters {
+  flex-shrink: 3;
+}
+
+.url-container .query {
+  flex-shrink: 2;
+}
+
+.url-container .section {
+  flex-shrink: 2;
 }

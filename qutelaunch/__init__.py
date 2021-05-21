@@ -1,5 +1,6 @@
 import re
 from time import time
+from urllib.parse import urlparse
 
 from .bookmarks import Bookmarks
 from .color_scheme import ColorScheme
@@ -35,6 +36,7 @@ def init(config, c, *, list_length=20, color_scheme=ColorScheme(), exclude_patte
         weekly_highlights_urls=weekly_highlights_urls,
         bookmarks_urls=bookmarks.urls,
         color_scheme=color_scheme,
+        urlparse=urlparse,
     )
 
     with open(config.datadir / "qutelaunch.html", "w") as f:

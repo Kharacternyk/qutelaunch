@@ -15,24 +15,27 @@
           {{title}}
         </h2>
         {% for url in urls %}
-          <div class=entry-container>
-            {% set url_string = url.geturl() -%}
-            <div class=favicon-container>
-              <a href="{{url_string}}">
-              {% if url.scheme == "file" %}
+          <div class=url-container>
+            {% set scheme, netloc, path, parameters, query, section = urlparse(url) -%}
+            <div class=favicon>
+              <a href="{{url}}">
+              {% if scheme == "file" %}
                 {# TODO a file icon #}
                 <img width=16 height=16>
               {% else %}
                 <img
-                  src="https://external-content.duckduckgo.com/ip3/{{url.netloc}}.ico"
+                  src="https://external-content.duckduckgo.com/ip3/{{netloc}}.ico"
                   width=16 height=16
                 >
-              </a>
               {% endif %}
+              </a>
             </div>
-            <div class=url-container>
-              <a href="{{url_string}}">{{"&nbsp;" + url_string}}</a>
-            </div>
+            <div class=scheme>{{scheme}}</div>
+            <div class=netloc>{% if netloc %}://{{netloc}}{% endif %}</div>
+            <div class=path>{{path}}</div>
+            <div class=parameters>{% if parameters %};{{parameters}}{% endif %}</div>
+            <div class=query>{% if query %}?{{query}}{% endif %}</div>
+            <div class=section>{% if section %}#{{section}}{% endif %}</div>
           </div>
         {% endfor %}
         </div>
