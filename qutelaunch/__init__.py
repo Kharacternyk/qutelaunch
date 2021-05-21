@@ -39,7 +39,7 @@ def init(config, c, *, list_length=20, color_scheme=ColorScheme(), exclude_patte
         urlparse=urlparse,
     )
 
-    with open(config.datadir / "qutelaunch.html", "w") as f:
+    with open(target, "w") as f:
         print(startpage, file=f)
 
     c.url.start_pages = target
