@@ -6,54 +6,67 @@ html, body {
 }
 
 body {
-  font-family: monospace;
-  background-color: {{ color_scheme.background }};
-  color: {{ color_scheme.foreground }};
-  margin: 0;
   display: flex;
   flex-direction: column;
-}
+  margin: 0;
 
-h2 {
-  font-style: italic;
-  color: {{ color_scheme.section_header }};
+  font-family: monospace;
+  background-color: {{color_scheme.background}};
 }
 
 .vertical-placeholder {
   flex: 1 1 0;
 }
 
-.list-container {
+.columns-container {
+  display: flex;
+  flex: 0 0 auto;
   padding: 0;
   margin: 0;
-  flex: 0 0 auto;
-  display: flex;
 }
 
-.list-container ul {
+.column {
+  flex: 1 1 0;
   padding: 3%;
   margin: 0;
   min-width: 0;
-  flex: 1 1 0;
-  list-style: none;
 }
 
-.list-container ul + ul {
+.column + .column {
   padding-left: 0;
 }
 
-.list-container ul li {
+.column h2 {
+  color: {{color_scheme.section_header}};
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.list-container ul li a {
-  text-decoration: none;
-  color: {{ color_scheme.foreground }};
+.entry-container {
+  display: flex;
 }
 
-.list-container ul li a img {
-  display: inline-block;
+.url-container {
+  flex: 1 1 auto;
+  min-width: 0;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.url-container a {
+  text-decoration: none;
+  color: {{color_scheme.foreground}};
+}
+
+.favicon-container {
+  flex: 0 0 auto;
+  background-color: {{color_scheme.foreground}};
+}
+
+.favicon-container a {
+  text-decoration: none;
   vertical-align: top;
 }

@@ -8,38 +8,38 @@
   </head>
   <body>
     <div class=vertical-placeholder></div>
-    <div class=list-container>
-      {% macro make_list(urls) -%}
+    <div class=columns-container>
+      {% macro make_column(title, urls) -%}
+        <div class=column>
+        <h2>
+          {{title}}
+        </h2>
         {% for url in urls %}
-          <li>
+          <div class=entry-container>
             {% set url_string = url.geturl() -%}
-            <a href="{{url_string}}">
-            {% if url.scheme == "file" %}
-              {# TODO a file icon #}
-              <img width=16 height=16>
-            {% else %}
-              <img
-                src="https://external-content.duckduckgo.com/ip3/{{url.netloc}}.ico"
-                width=16 height=16
-              >
-            {% endif %}
-              {{url_string}}
-            </a>
-          </li>
+            <div class=favicon-container>
+              <a href="{{url_string}}">
+              {% if url.scheme == "file" %}
+                {# TODO a file icon #}
+                <img width=16 height=16>
+              {% else %}
+                <img
+                  src="https://external-content.duckduckgo.com/ip3/{{url.netloc}}.ico"
+                  width=16 height=16
+                >
+              </a>
+              {% endif %}
+            </div>
+            <div class=url-container>
+              <a href="{{url_string}}">{{"&nbsp;" + url_string}}</a>
+            </div>
+          </div>
         {% endfor %}
+        </div>
       {%- endmacro %}
-      <ul class=weekly-highlights-list>
-        <h2> Weekly Highlights </h2>
-        {{ make_list(weekly_highlights_urls) }}
-      </ul>
-      <ul class=most-visited-list>
-        <h2> Most Visited </h2>
-        {{ make_list(most_visited_urls) }}
-      </ul>
-      <ul class=bookmarks-list>
-        <h2> Bookmarks </h2>
-        {{ make_list(bookmarks_urls) }}
-      </ul>
+      {{make_column("Weekly Highlights", weekly_highlights_urls)}}
+      {{make_column("Most Visited", most_visited_urls)}}
+      {{make_column("Bookmarks", bookmarks_urls)}}
     </div>
     <div class=vertical-placeholder></div>
   </body>
