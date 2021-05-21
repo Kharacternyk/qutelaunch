@@ -56,8 +56,12 @@ body {
   text-overflow: ellipsis;
 }
 
-.url-container .favicon {
-  background-color: {{color_scheme.foreground}};
+.url-container.odd div {
+  background-color: {{color_scheme.url_background_odd}};
+}
+
+.url-container.even div {
+  background-color: {{color_scheme.url_background_even}};
 }
 
 .url-container .favicon a {
@@ -66,7 +70,7 @@ body {
 }
 
 .url-container .scheme {
-  margin-left: 2%;
+  padding-left: 2%;
   flex-shrink: 1;
 }
 
@@ -87,5 +91,6 @@ body {
 }
 
 .url-container .section {
+  flex-grow: 1;
   flex-shrink: 2;
 }

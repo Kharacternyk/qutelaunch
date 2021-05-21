@@ -15,7 +15,7 @@
           {{title}}
         </h2>
         {% for url in urls %}
-          <div class=url-container>
+          <div class="url-container {{loop.cycle("odd", "even")}}">
             {% set scheme, netloc, path, parameters, query, section = urlparse(url) -%}
             <div class=favicon>
               <a href="{{url}}">
