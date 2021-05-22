@@ -30,8 +30,8 @@
               {% endif %}
               </a>
             </div>
-            <div class=scheme>{{scheme}}</div>
-            <div class=netloc>{% if netloc %}://{{netloc}}{% endif %}</div>
+            <div class=scheme>{{scheme}}:/</div>
+            <div class=netloc>{% if netloc %}/{{netloc}}{% endif %}</div>
             <div class=path>{{path}}</div>
             <div class=parameters>{% if parameters %};{{parameters}}{% endif %}</div>
             <div class=query>{% if query %}?{{query}}{% endif %}</div>
