@@ -7,7 +7,7 @@ from .color_scheme import ColorScheme
 from .renderer import Renderer
 from .web_history import WebHistory
 
-__all__ = ["init"]
+__all__ = ["init", "ColorScheme"]
 
 
 def init(
@@ -20,6 +20,24 @@ def init(
     update_timeout=(60 * 60 * 24),
     recent_timespan=(60 * 60 * 24 * 7)
 ):
+    """Set qutelaunch.html as the startpage and regenerate the file if needed.
+
+    Args:
+        config: The config object provided by Qutebrowser for use in config.py.
+        c: The shorthand object provided by Qutebrowser for use in config.py.
+
+    Keyword Args:
+        list_length: The length of the "Recent" and "Most Visited" lists.
+        color_scheme:
+            The color scheme represented as an instance of the ColorScheme dataclass.
+        exclude_patterns:
+            The RegEx patterns that describe the URLs to exclude from the "Recent" and
+            "Most Visited" lists.
+        update_timeout: The timeout in seconds that triggers a regeneration of the file.
+        recent_timespan:
+            The timespan in seconds that defines which URLs can show up in the "Recent"
+            list.
+    """
     renderer = Renderer()
     web_history = WebHistory(config.datadir / "history.sqlite")
     bookmarks = Bookmarks(config.configdir / "bookmarks" / "urls")
