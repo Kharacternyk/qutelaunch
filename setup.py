@@ -3,11 +3,14 @@ from setuptools import setup
 
 setup(
     name="qutelaunch",
-    version="0.0.0",
-    license="GPLv3+",
-    install_requires=["jinja2"],
-    tests_require=["pytest", "hypothesis"],
+    description="A startpage for Qutebrowser designed to be left quickly.",
     url="https://github.com/Kharacternyk/qutelaunch",
+    version="0.0.0",
+    license="GPLv3",
+    author="Nazar Vinnichuk",
+    keywords="qutebrowser startpage",
     packages=find_packages(),
     package_data={"qutelaunch": ["templates/*"]},
+    install_requires=["jinja2", "dataclasses; python_version < '3.7'"],
+    tests_require=["pytest", "hypothesis"],
 )
