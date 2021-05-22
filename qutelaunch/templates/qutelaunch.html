@@ -19,7 +19,7 @@
             {% set scheme, netloc, path, parameters, query, section = urlparse(url) -%}
             <div class=favicon>
               <a href="{{url}}">
-              {% if scheme == "file" %}
+              {% if scheme in ["file", "qute"] %}
                 {# TODO a file icon #}
                 <img width=16 height=16>
               {% else %}
