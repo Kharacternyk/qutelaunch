@@ -15,32 +15,35 @@ def init(config, c, *, list_length=20, color_scheme=ColorScheme(), exclude_patte
     web_history = WebHistory(config.datadir / "history.sqlite")
     bookmarks = Bookmarks(config.configdir / "bookmarks" / "urls")
 
-    seconds_in_week = 60 * 60 * 24 * 7
-    week_ago = time() - seconds_in_week
+    seconds_in_day = 60 * 60 * 24
+    seconds_in_week = seconds_in_day * 7
+    now = time()
+    day_ago = now - seconds_in_day
+    week_ago = now - seconds_in_week
 
-    target = str(config.datadir / "qutelaunch.html")
-    exclude_regexes = re.compile(re.escape("file://" + target)), *(
-        re.compile(pattern) for pattern in exclude_patterns
-    )
+    target = config.datadir / "qutelaunch.html"
+    c.url.start_pages = str(target)
+    c.url.default_page = str(target)
 
-    most_visited_urls = web_history.get_most_visited_urls(
-        list_length, exclude_regexes=exclude_regexes
-    )
-    weekly_highlights_urls = web_history.get_most_visited_urls(
-        list_length, exclude_regexes=exclude_regexes, newer_than=week_ago
-    )
+    if not target.exists() or target.stat().st_mtime < day_ago:
+        exclude_regexes = re.compile(re.escape("file://" + str(target))), *(
+            re.compile(pattern) for pattern in exclude_patterns
+        )
+        most_visited_urls = web_history.get_most_visited_urls(
+            list_length, exclude_regexes=exclude_regexes
+        )
+        weekly_highlights_urls = web_history.get_most_visited_urls(
+            list_length, exclude_regexes=exclude_regexes, newer_than=week_ago
+        )
 
-    startpage = renderer.render(
-        "qutelaunch.html",
-        most_visited_urls=most_visited_urls,
-        weekly_highlights_urls=weekly_highlights_urls,
-        bookmarks_urls=bookmarks.urls,
-        color_scheme=color_scheme,
-        urlparse=urlparse,
-    )
+        startpage = renderer.render(
+            "qutelaunch.html",
+            most_visited_urls=most_visited_urls,
+            weekly_highlights_urls=weekly_highlights_urls,
+            bookmarks_urls=bookmarks.urls,
+            color_scheme=color_scheme,
+            urlparse=urlparse,
+        )
 
-    with open(target, "w") as f:
-        print(startpage, file=f)
-
-    c.url.start_pages = target
-    c.url.default_page = target
+        with open(target, "w") as f:
+            print(startpage, file=f)
