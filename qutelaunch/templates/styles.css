@@ -79,7 +79,7 @@ body {
 }
 
 .url-container .path {
-  flex-shrink: 1;
+  flex-shrink: 2;
 }
 
 .url-container .parameters {
@@ -87,10 +87,10 @@ body {
 }
 
 .url-container .query {
-  flex-shrink: 2;
+  flex-shrink: 3;
 }
 
 .url-container .section {
   flex-grow: 1;
-  flex-shrink: 2;
+  flex-shrink: 3;
 }
