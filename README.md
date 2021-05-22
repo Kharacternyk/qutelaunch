@@ -18,7 +18,7 @@ import qutelaunch
 qutelaunch.init(config, c)
 ```
 
-The `qutelaunch.init` functions accepts some keyword arguments that modify the
+The `qutelaunch.init` function accepts some keyword arguments that modify the
 appearance or behaviour of Qutelaunch.
 
 *  `list_length`: The length of the "Recent" and "Most Visited" lists.
