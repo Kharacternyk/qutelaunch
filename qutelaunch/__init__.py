@@ -56,7 +56,7 @@ def init(
         recent_urls = web_history.get_most_visited_urls(
             list_length,
             exclude_regexes=exclude_regexes,
-            newer_than=time() - recent_timespan,
+            since=time() - recent_timespan,
         )
 
         startpage = renderer.render(
