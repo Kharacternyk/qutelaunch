@@ -46,6 +46,21 @@ body {
 
 .url-container {
   display: flex;
+  color: {{color_scheme.foreground}};
+  text-decoration: none;
+}
+
+.url-container.odd {
+  background-color: {{color_scheme.url_background_odd}};
+}
+
+.url-container.even {
+  background-color: {{color_scheme.url_background_even}};
+}
+
+.url-container:focus {
+  color: {{color_scheme.background}};
+  background-color: {{color_scheme.foreground}};
 }
 
 .url-container div {
@@ -56,16 +71,7 @@ body {
   text-overflow: ellipsis;
 }
 
-.url-container.odd div {
-  background-color: {{color_scheme.url_background_odd}};
-}
-
-.url-container.even div {
-  background-color: {{color_scheme.url_background_even}};
-}
-
-.url-container .favicon a {
-  text-decoration: none;
+.url-container .favicon img {
   vertical-align: top;
 }
 

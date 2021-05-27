@@ -9,40 +9,38 @@
   <body>
     <div class=vertical-placeholder></div>
     <div class=columns-container>
-      {% macro make_column(title, urls) -%}
-        <div class=column>
-        <h2>
-          {{title}}
-        </h2>
-        {% for url in urls %}
-          <div class="url-container {{loop.cycle("odd", "even")}}">
-            {% set scheme, netloc, path, parameters, query, section = urlparse(url) -%}
-            <div class=favicon>
-              <a href="{{url}}">
-              {% if scheme in ["file", "qute"] %}
-                {# TODO a file icon #}
-                <img style="visibility: hidden" width=16 height=16>
-              {% else %}
-                <img
-                  src="https://external-content.duckduckgo.com/ip3/{{netloc}}.ico"
-                  width=16 height=16
-                >
-              {% endif %}
-              </a>
-            </div>
-            <div class=scheme>{{scheme}}:/</div>
-            <div class=netloc>{% if netloc %}/{{netloc}}{% endif %}</div>
-            <div class=path>{{path}}</div>
-            <div class=parameters>{% if parameters %};{{parameters}}{% endif %}</div>
-            <div class=query>{% if query %}?{{query}}{% endif %}</div>
-            <div class=section>{% if section %}#{{section}}{% endif %}</div>
+    {% macro make_column(id, title, urls) -%}
+      <div class=column id="{{id}}">
+      <h2>
+        {{title}}
+      </h2>
+      {% for url in urls %}
+        <a href="{{url}}" class="url-container {{loop.cycle("odd", "even")}}">
+          {% set scheme, netloc, path, parameters, query, section = urlparse(url) -%}
+          <div class=favicon>
+          {% if scheme in ["file", "qute"] %}
+            {# TODO a file icon #}
+            <img style="visibility: hidden" width=16 height=16>
+          {% else %}
+            <img
+              src="https://external-content.duckduckgo.com/ip3/{{netloc}}.ico"
+              width=16 height=16
+            >
+          {% endif %}
           </div>
-        {% endfor %}
-        </div>
-      {%- endmacro %}
-      {{make_column("Recent", recent_urls)}}
-      {{make_column("Most Visited", most_visited_urls)}}
-      {{make_column("Bookmarks", bookmarks_urls)}}
+          <div class=scheme>{{scheme}}:/</div>
+          <div class=netloc>{% if netloc %}/{{netloc}}{% endif %}</div>
+          <div class=path>{{path}}</div>
+          <div class=parameters>{% if parameters %};{{parameters}}{% endif %}</div>
+          <div class=query>{% if query %}?{{query}}{% endif %}</div>
+          <div class=section>{% if section %}#{{section}}{% endif %}</div>
+        </a>
+      {% endfor %}
+      </div>
+    {%- endmacro %}
+      {{make_column("recent-column", "Recent", recent_urls)}}
+      {{make_column("most-visited-column", "Most Visited", most_visited_urls)}}
+      {{make_column("bookmarks-column", "Bookmarks", bookmarks_urls)}}
     </div>
     <div class=vertical-placeholder></div>
     <script>

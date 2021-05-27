@@ -1,27 +1,13 @@
 "use strict";
 
+document.getElementById("recent-column").children[1].focus();
+
 window.addEventListener("keydown", event => {
     if (event.key === "ArrowDown") {
         event.preventDefault();
-        /* FIXME */
-        document
-            .activeElement
-            .parentElement
-            .parentElement
-            .nextElementSibling
-            .children[0]
-            .children[0]
-            .focus();
+        document.activeElement.nextElementSibling.focus();
     } else if (event.key === "ArrowUp") {
         event.preventDefault();
-        /* FIXME */
-        document
-            .activeElement
-            .parentElement
-            .parentElement
-            .previousElementSibling
-            .children[0]
-            .children[0]
-            .focus();
+        document.activeElement.previousElementSibling.focus();
     }
 });
