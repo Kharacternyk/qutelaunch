@@ -13,7 +13,8 @@
       <div class=column>
       {# TODO title #}
       {% for url in urls %}
-        <a href="{{url}}" class="url-container {{loop.cycle("odd", "even")}}">
+        <a href="{{url}}" data-index={{loop.index0}}
+           class="url-container {{loop.cycle("odd", "even")}}">
           {% set scheme, netloc, path, parameters, query, section = urlparse(url) -%}
           <div class=favicon>
           {% if scheme in ["file", "qute"] %}

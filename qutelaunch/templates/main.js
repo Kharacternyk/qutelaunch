@@ -22,9 +22,11 @@ window.addEventListener("keydown", event => {
         cycleElement(document.activeElement, true).focus();
     } else if (event.key === "ArrowRight") {
         event.preventDefault();
-        cycleElement(document.activeElement.parentElement).children[0].focus();
+        const index = Number(document.activeElement.dataset.index);
+        cycleElement(document.activeElement.parentElement).children[index].focus();
     } else if (event.key == "ArrowLeft") {
         event.preventDefault();
-        cycleElement(document.activeElement.parentElement, true).children[0].focus();
+        const index = Number(document.activeElement.dataset.index);
+        cycleElement(document.activeElement.parentElement, true).children[index].focus();
     }
 });
