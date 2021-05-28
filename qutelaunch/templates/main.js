@@ -14,6 +14,7 @@ function cycleElement(element, backwards) {
 }
 
 window.addEventListener("keydown", event => {
+    const index = Number(document.activeElement.dataset.index);
     if (event.key === "ArrowDown") {
         event.preventDefault();
         cycleElement(document.activeElement).focus();
@@ -22,11 +23,9 @@ window.addEventListener("keydown", event => {
         cycleElement(document.activeElement, true).focus();
     } else if (event.key === "ArrowRight") {
         event.preventDefault();
-        const index = Number(document.activeElement.dataset.index);
         cycleElement(document.activeElement.parentElement).children[index].focus();
-    } else if (event.key == "ArrowLeft") {
+    } else if (event.key === "ArrowLeft") {
         event.preventDefault();
-        const index = Number(document.activeElement.dataset.index);
         cycleElement(document.activeElement.parentElement, true).children[index].focus();
     }
 });
