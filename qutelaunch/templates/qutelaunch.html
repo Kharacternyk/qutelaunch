@@ -17,13 +17,9 @@
           {% set scheme, netloc, path, parameters, query, section = urlparse(url) -%}
           <div class=favicon>
           {% if scheme in ["file", "qute"] %}
-            {# TODO a file icon #}
-            <img style="visibility: hidden" width=16 height=16>
+            <img class=local>
           {% else %}
-            <img
-              src="https://external-content.duckduckgo.com/ip3/{{netloc}}.ico"
-              width=16 height=16
-            >
+            <img src="https://external-content.duckduckgo.com/ip3/{{netloc}}.ico">
           {% endif %}
           </div>
           <div class=scheme>{{scheme}}:/</div>

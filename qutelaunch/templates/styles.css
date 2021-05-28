@@ -73,6 +73,13 @@ body {
 
 .url-container .favicon img {
   vertical-align: top;
+  width: 16px;
+  height: 16px;
+}
+
+.url-container .favicon img.local {
+  /* TODO a file icon */
+  visibility: hidden;
 }
 
 .url-container .scheme {
