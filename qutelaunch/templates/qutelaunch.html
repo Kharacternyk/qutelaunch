@@ -8,12 +8,10 @@
   </head>
   <body>
     <div class=vertical-placeholder></div>
-    <div class=columns-container>
-    {% macro make_column(id, title, urls) -%}
-      <div class=column id="{{id}}">
-      <h2>
-        {{title}}
-      </h2>
+    <div id=columns-container>
+    {% macro make_column(title, urls) -%}
+      <div class=column>
+      {# TODO title #}
       {% for url in urls %}
         <a href="{{url}}" class="url-container {{loop.cycle("odd", "even")}}">
           {% set scheme, netloc, path, parameters, query, section = urlparse(url) -%}
@@ -38,9 +36,9 @@
       {% endfor %}
       </div>
     {%- endmacro %}
-      {{make_column("recent-column", "Recent", recent_urls)}}
-      {{make_column("most-visited-column", "Most Visited", most_visited_urls)}}
-      {{make_column("bookmarks-column", "Bookmarks", bookmarks_urls)}}
+      {{make_column("Recent", recent_urls)}}
+      {{make_column("Most Visited", most_visited_urls)}}
+      {{make_column("Bookmarks", bookmarks_urls)}}
     </div>
     <div class=vertical-placeholder></div>
     <script>

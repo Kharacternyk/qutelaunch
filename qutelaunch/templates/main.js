@@ -1,13 +1,30 @@
 "use strict";
 
-document.getElementById("recent-column").children[1].focus();
+const columns_container = document.getElementById("columns-container");
+
+columns_container.children[0].children[0].focus();
+
+function cycleElement(element, backwards) {
+    let sibling = backwards ? element.previousElementSibling : element.nextElementSibling;
+    if (!sibling) {
+        const index = backwards ? element.parentElement.children.length - 1 : 0;
+        sibling = element.parentElement.children[index];
+    }
+    return sibling;
+}
 
 window.addEventListener("keydown", event => {
     if (event.key === "ArrowDown") {
         event.preventDefault();
-        document.activeElement.nextElementSibling.focus();
+        cycleElement(document.activeElement).focus();
     } else if (event.key === "ArrowUp") {
         event.preventDefault();
-        document.activeElement.previousElementSibling.focus();
+        cycleElement(document.activeElement, true).focus();
+    } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        cycleElement(document.activeElement.parentElement).children[0].focus();
+    } else if (event.key == "ArrowLeft") {
+        event.preventDefault();
+        cycleElement(document.activeElement.parentElement, true).children[0].focus();
     }
 });

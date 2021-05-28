@@ -19,7 +19,7 @@ body {
   flex: 1 1 0;
 }
 
-.columns-container {
+#columns-container {
   display: flex;
   flex: 0 0 auto;
   padding: 0;
