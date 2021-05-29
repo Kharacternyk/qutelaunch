@@ -9,9 +9,9 @@
   <body>
     <div class=vertical-placeholder></div>
     <div id=columns-container>
-    {% macro make_column(title, urls) -%}
+    {% macro make_column(header, urls) -%}
       <div class=column>
-      {# TODO title #}
+        <h2>{{header}}</h2>
       {% for url in urls %}
         <a href="{{url}}" data-index={{loop.index0}}
            class="url-container {{loop.cycle("odd", "even")}}">
