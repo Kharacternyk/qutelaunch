@@ -10,4 +10,5 @@ pkgs.python3Packages.buildPythonPackage {
     python3Packages.pytest
     python3Packages.hypothesis
   ];
+  QUTELAUNCH_DEBUG = "1";
 }

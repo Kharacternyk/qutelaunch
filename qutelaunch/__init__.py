@@ -1,4 +1,5 @@
 import re
+from os import getenv
 from time import time
 from urllib.parse import urlparse
 
@@ -45,6 +46,9 @@ def init(
     target = config.datadir / "qutelaunch.html"
     c.url.start_pages = str(target)
     c.url.default_page = str(target)
+
+    if getenv("QUTELAUNCH_DEBUG"):
+        update_timeout = 0
 
     if not target.exists() or target.stat().st_mtime < time() - update_timeout:
         exclude_regexes = re.compile(re.escape("file://" + str(target))), *(
