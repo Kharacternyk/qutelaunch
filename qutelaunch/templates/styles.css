@@ -11,8 +11,7 @@ body {
   margin: 0;
 
   font-family: monospace;
-  background-color: {{color_scheme.background}};
-  color: {{color_scheme.foreground}};
+  background-color: {{color_scheme.page_bg}};
 }
 
 .vertical-placeholder {
@@ -38,7 +37,7 @@ body {
 }
 
 .column h2 {
-  color: {{color_scheme.section_header}};
+  color: {{color_scheme.header_fg}};
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -46,21 +45,22 @@ body {
 
 .url-container {
   display: flex;
-  color: {{color_scheme.foreground}};
   text-decoration: none;
 }
 
 .url-container.odd {
-  background-color: {{color_scheme.url_background_odd}};
+  background-color: {{color_scheme.url_odd_bg}};
+  color: {{color_scheme.url_odd_fg}};
 }
 
 .url-container.even {
-  background-color: {{color_scheme.url_background_even}};
+  background-color: {{color_scheme.url_even_bg}};
+  color: {{color_scheme.url_even_fg}};
 }
 
 .url-container:focus {
-  color: {{color_scheme.background}};
-  background-color: {{color_scheme.foreground}};
+  background-color: {{color_scheme.url_focused_bg}};
+  color: {{color_scheme.url_focused_fg}};
 }
 
 .url-container div {
