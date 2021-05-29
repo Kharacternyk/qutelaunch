@@ -21,11 +21,10 @@ def init(
     update_timeout=(60 * 60 * 24),
     recent_timespan=(60 * 60 * 24 * 7)
 ):
-    renderer = Renderer()
-    web_history = WebHistory(config.datadir / "history.sqlite")
-    bookmarks = Bookmarks(config.configdir / "bookmarks" / "urls")
-
     target = config.datadir / "qutelaunch.html"
+    history_path = config.datadir / "history.sqlite"
+    bookmarks_path = config.configdir / "bookmarks" / "urls"
+
     c.url.start_pages = str(target)
     c.url.default_page = str(target)
 
@@ -33,26 +32,50 @@ def init(
         update_timeout = 0
 
     if not target.exists() or target.stat().st_mtime < time() - update_timeout:
-        exclude_regexes = re.compile(re.escape("file://" + str(target))), *(
-            re.compile(pattern) for pattern in exclude_patterns
-        )
-        most_visited_urls = web_history.get_most_visited_urls(
-            list_length, exclude_regexes=exclude_regexes
-        )
-        recent_urls = web_history.get_most_visited_urls(
+        write_target(
+            target,
+            history_path,
+            bookmarks_path,
             list_length,
-            exclude_regexes=exclude_regexes,
-            since=time() - recent_timespan,
+            color_scheme,
+            exclude_patterns,
+            recent_timespan,
         )
 
-        startpage = renderer.render(
-            "qutelaunch.html",
-            most_visited_urls=most_visited_urls,
-            recent_urls=recent_urls,
-            bookmarks_urls=bookmarks.urls,
-            color_scheme=color_scheme,
-            urlparse=urlparse,
-        )
 
-        with open(target, "w") as f:
-            print(startpage, file=f)
+def write_target(
+    target,
+    history_path,
+    bookmarks_path,
+    list_length,
+    color_scheme,
+    exclude_patterns,
+    recent_timespan,
+):
+    renderer = Renderer()
+    web_history = WebHistory(history_path)
+    bookmarks = Bookmarks(bookmarks_path)
+
+    exclude_regexes = re.compile(re.escape("file://" + str(target))), *(
+        re.compile(pattern) for pattern in exclude_patterns
+    )
+    most_visited_urls = web_history.get_most_visited_urls(
+        list_length, exclude_regexes=exclude_regexes
+    )
+    recent_urls = web_history.get_most_visited_urls(
+        list_length,
+        exclude_regexes=exclude_regexes,
+        since=time() - recent_timespan,
+    )
+
+    startpage = renderer.render(
+        "qutelaunch.html",
+        most_visited_urls=most_visited_urls,
+        recent_urls=recent_urls,
+        bookmarks_urls=bookmarks.urls,
+        color_scheme=color_scheme,
+        urlparse=urlparse,
+    )
+
+    with open(target, "w") as f:
+        print(startpage, file=f)
