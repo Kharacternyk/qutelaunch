@@ -4,13 +4,13 @@ const columns_container = document.getElementById("columns-container");
 
 columns_container.children[0].children[1].focus();
 
-class CycleError extends Error {
+class ElementLoopError extends Error {
     constructor(...params) {
         super(...params);
     }
 }
 
-function cycleElement(element, backwards, filter = _ => true) {
+function loopElement(element, backwards, filter = _ => true) {
     let sibling = element;
     do {
         sibling = backwards ? sibling.previousElementSibling : sibling.nextElementSibling;
@@ -23,7 +23,7 @@ function cycleElement(element, backwards, filter = _ => true) {
         sibling = backwards ? sibling.previousElementSibling : sibling.nextElementSibling;
     }
     if (!sibling) {
-        throw new CycleError("Filter did not match any elements");
+        throw new ElementLoopError("Filter did not match any elements");
     }
     return sibling;
 }
@@ -33,15 +33,15 @@ window.addEventListener("keydown", event => {
     const is_anchor = element => element.tagName === "A";
     if (event.key === "ArrowDown") {
         event.preventDefault();
-        cycleElement(document.activeElement, false, is_anchor).focus();
+        loopElement(document.activeElement, false, is_anchor).focus();
     } else if (event.key === "ArrowUp") {
         event.preventDefault();
-        cycleElement(document.activeElement, true, is_anchor).focus();
+        loopElement(document.activeElement, true, is_anchor).focus();
     } else if (event.key === "ArrowRight") {
         event.preventDefault();
-        cycleElement(document.activeElement.parentElement).children[index].focus();
+        loopElement(document.activeElement.parentElement).children[index].focus();
     } else if (event.key === "ArrowLeft") {
         event.preventDefault();
-        cycleElement(document.activeElement.parentElement, true).children[index].focus();
+        loopElement(document.activeElement.parentElement, true).children[index].focus();
     }
 });
