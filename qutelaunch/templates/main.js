@@ -28,6 +28,12 @@ function loopElement(element, backwards, filter = _ => true) {
     return sibling;
 }
 
+function nthOrLastChild(element, n) {
+    const length = element.children.length;
+    const child = n < length ? element.children[n] : element.children[length - 1];
+    return child;
+}
+
 window.addEventListener("keydown", event => {
     const index = Number(document.activeElement.dataset.index) + 1;
     const is_anchor = element => element.tagName === "A";
@@ -39,9 +45,11 @@ window.addEventListener("keydown", event => {
         loopElement(document.activeElement, true, is_anchor).focus();
     } else if (event.key === "ArrowRight") {
         event.preventDefault();
-        loopElement(document.activeElement.parentElement).children[index].focus();
+        const column = loopElement(document.activeElement.parentElement)
+        nthOrLastChild(column, index).focus();
     } else if (event.key === "ArrowLeft") {
         event.preventDefault();
-        loopElement(document.activeElement.parentElement, true).children[index].focus();
+        const column = loopElement(document.activeElement.parentElement, true)
+        nthOrLastChild(column, index).focus();
     }
 });
