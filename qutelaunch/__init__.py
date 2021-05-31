@@ -14,7 +14,7 @@ def init(
     list_length=20,
     color_scheme=ColorScheme(),
     exclude_patterns=(),
-    update_timeout=(60 * 60 * 24),
+    update_timeout=(60 * 60 * 6),
     recent_timespan=(60 * 60 * 24 * 7)
 ):
     target = config.datadir / "qutelaunch.html"
