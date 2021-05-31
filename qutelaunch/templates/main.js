@@ -37,19 +37,20 @@ function nthOrLastChild(element, n) {
 window.addEventListener("keydown", event => {
     const index = Number(document.activeElement.dataset.index) + 1;
     const is_anchor = element => element.tagName === "A";
-    if (event.key === "ArrowDown") {
+    const handler = {
+        ArrowDown: () => loopElement(document.activeElement, false, is_anchor).focus(),
+        ArrowUp: () => loopElement(document.activeElement, true, is_anchor).focus(),
+        ArrowRight: () => {
+            const column = loopElement(document.activeElement.parentElement)
+            nthOrLastChild(column, index).focus();
+        },
+        ArrowLeft: () => {
+            const column = loopElement(document.activeElement.parentElement, true)
+            nthOrLastChild(column, index).focus();
+        },
+    }[event.key];
+    if (handler) {
         event.preventDefault();
-        loopElement(document.activeElement, false, is_anchor).focus();
-    } else if (event.key === "ArrowUp") {
-        event.preventDefault();
-        loopElement(document.activeElement, true, is_anchor).focus();
-    } else if (event.key === "ArrowRight") {
-        event.preventDefault();
-        const column = loopElement(document.activeElement.parentElement)
-        nthOrLastChild(column, index).focus();
-    } else if (event.key === "ArrowLeft") {
-        event.preventDefault();
-        const column = loopElement(document.activeElement.parentElement, true)
-        nthOrLastChild(column, index).focus();
+        handler();
     }
 });
