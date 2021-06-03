@@ -1,14 +1,16 @@
 import re
+from multiprocessing import Process
 from time import time
 from urllib.parse import urlparse
 
+from flask import Flask
+from flask import render_template
+
 from .bookmarks import Bookmarks
-from .renderer import Renderer
 from .web_history import WebHistory
 
 
-def write_target(
-    target,
+def serve(
     history_path,
     bookmarks_path,
     list_length,
@@ -16,13 +18,10 @@ def write_target(
     exclude_patterns,
     recent_timespan,
 ):
-    renderer = Renderer()
     web_history = WebHistory(history_path)
     bookmarks = Bookmarks(bookmarks_path)
 
-    exclude_regexes = re.compile(re.escape("file://" + str(target))), *(
-        re.compile(pattern) for pattern in exclude_patterns
-    )
+    exclude_regexes = (re.compile(pattern) for pattern in exclude_patterns)
     most_visited_urls = web_history.get_most_visited_urls(
         list_length, exclude_regexes=exclude_regexes
     )
@@ -32,14 +31,17 @@ def write_target(
         since=time() - recent_timespan,
     )
 
-    startpage = renderer.render(
-        "qutelaunch.html",
-        most_visited_urls=most_visited_urls,
-        recent_urls=recent_urls,
-        bookmarks_urls=bookmarks.urls,
-        color_scheme=color_scheme,
-        urlparse=urlparse,
-    )
+    app = Flask("qutelaunch")
 
-    with open(target, "w") as f:
-        print(startpage, file=f)
+    @app.route("/")
+    def startpage():
+        return render_template(
+            "qutelaunch.html",
+            most_visited_urls=most_visited_urls,
+            recent_urls=recent_urls,
+            bookmarks_urls=bookmarks.urls,
+            color_scheme=color_scheme,
+            urlparse=urlparse,
+        )
+
+    Process(target=(lambda: app.run())).start()

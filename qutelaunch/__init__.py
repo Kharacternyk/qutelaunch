@@ -1,8 +1,5 @@
-from os import getenv
-from time import time
-
 from .color_scheme import ColorScheme
-from .write_target import write_target
+from .httpd import serve
 
 __all__ = ["init", "ColorScheme"]
 
@@ -14,26 +11,20 @@ def init(
     list_length=20,
     color_scheme=ColorScheme(),
     exclude_patterns=(),
-    update_timeout=(60 * 60 * 6),
-    recent_timespan=(60 * 60 * 24 * 7)
+    recent_timespan=(60 * 60 * 24 * 7),
+    **kwargs,
 ):
-    target = config.datadir / "qutelaunch.html"
     history_path = config.datadir / "history.sqlite"
     bookmarks_path = config.configdir / "bookmarks" / "urls"
 
-    c.url.start_pages = str(target)
-    c.url.default_page = str(target)
+    c.url.start_pages = "http://127.0.0.1:5000/"
+    c.url.default_page = "http://127.0.0.1:5000/"
 
-    if getenv("QUTELAUNCH_DEBUG"):
-        update_timeout = 0
-
-    if not target.exists() or target.stat().st_mtime < time() - update_timeout:
-        write_target(
-            target,
-            history_path,
-            bookmarks_path,
-            list_length,
-            color_scheme,
-            exclude_patterns,
-            recent_timespan,
-        )
+    serve(
+        history_path,
+        bookmarks_path,
+        list_length,
+        color_scheme,
+        exclude_patterns,
+        recent_timespan,
+    )

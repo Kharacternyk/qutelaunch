@@ -4,11 +4,6 @@ pkgs.python3Packages.buildPythonPackage {
   name = "qutelaunch";
   src = ./.;
   propagatedBuildInputs = with pkgs; [
-    python3Packages.jinja2
+    python3Packages.flask
   ];
-  nativeBuildInputs = with pkgs; [
-    python3Packages.pytest
-    python3Packages.hypothesis
-  ];
-  QUTELAUNCH_DEBUG = "1";
 }
