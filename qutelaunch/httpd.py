@@ -44,4 +44,4 @@ def serve(
             urlparse=urlparse,
         )
 
-    Process(target=(lambda: app.run())).start()
+    Process(target=(lambda: app.run()), daemon=True).start()
