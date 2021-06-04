@@ -4,8 +4,11 @@ from collections import Counter
 
 class WebHistory:
     def __init__(self, history_db_path):
-        uri = f"file:{history_db_path}?mode=ro"
-        self._db = sqlite3.connect(uri, uri=True).cursor()
+        self._uri = f"file:{history_db_path}?mode=ro"
+
+    @property
+    def _db(self):
+        return sqlite3.connect(self._uri, uri=True).cursor()
 
     def get_most_visited_urls(self, n, *, exclude_regexes=(), since=0):
         query = "SELECT url FROM history WHERE atime > ?"

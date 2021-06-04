@@ -21,19 +21,21 @@ def serve(
     recent_timespan,
 ):
     exclude_regexes = (re.compile(pattern) for pattern in exclude_patterns)
+    web_history = WebHistory(history_path)
+    bookmarks = Bookmarks(bookmarks_path)
     app = Flask("qutelaunch", static_url_path="")
     logging.getLogger("werkzeug").disabled = True
 
     @app.route("/styles.css")
-    def styles():
+    def serve_styles():
         return Response(
             render_template("styles.css", color_scheme=color_scheme),
             mimetype="text/css",
         )
 
     @app.route("/recent.html")
-    def recent():
-        recent_urls = WebHistory(history_path).get_most_visited_urls(
+    def serve_recent():
+        recent_urls = web_history.get_most_visited_urls(
             list_length,
             exclude_regexes=exclude_regexes,
             since=time() - recent_timespan,
@@ -46,8 +48,8 @@ def serve(
         )
 
     @app.route("/most-visited.html")
-    def most_visited():
-        most_visited_urls = WebHistory(history_path).get_most_visited_urls(
+    def serve_most_visited():
+        most_visited_urls = web_history.get_most_visited_urls(
             list_length, exclude_regexes=exclude_regexes
         )
         return render_template(
@@ -58,11 +60,11 @@ def serve(
         )
 
     @app.route("/bookmarks.html")
-    def bookmarks():
+    def serve_bookmarks():
         return render_template(
             "column.html",
             header="Bookmarks",
-            urls=Bookmarks(bookmarks_path).urls,
+            urls=bookmarks.urls,
             urlparse=urlparse,
         )
 
