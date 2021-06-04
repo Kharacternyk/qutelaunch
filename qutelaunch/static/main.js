@@ -1,8 +1,19 @@
 "use strict";
 
-const columns_container = document.getElementById("columns-container");
-
-columns_container.children[0].children[1].focus();
+function fetchColumns() {
+    const columnNames = ["recent", "most-visited", "bookmarks"];
+    for (const columnName of columnNames) {
+        const target = document.getElementById(columnName);
+        fetch(columnName + ".html")
+            .then(response => response.text())
+            .then(text => {
+                target.innerHTML = text;
+                if (columnName == "recent") {
+                    target.children[1].focus();
+                }
+            });
+    }
+}
 
 class ElementLoopError extends Error {
     constructor(...params) {
@@ -33,6 +44,8 @@ function nthOrLastChild(element, n) {
     const child = n < length ? element.children[n] : element.children[length - 1];
     return child;
 }
+
+fetchColumns();
 
 window.addEventListener("keydown", event => {
     const index = Number(document.activeElement.dataset.index) + 1;

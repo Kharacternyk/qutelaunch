@@ -1,22 +1,20 @@
-<div class=column>
-  <h2>{{header}}</h2>
-  {% for url in urls %}
-  <a href="{{url}}" data-index={{loop.index0}}
-     class="url-container {{loop.cycle("odd", "even")}}">
-    {% set scheme, netloc, path, parameters, query, section = urlparse(url) -%}
-    <div class=favicon>
-      {% if scheme in ["file", "qute"] %}
-      <img class=local>
-      {% else %}
-      <img src="https://external-content.duckduckgo.com/ip3/{{netloc}}.ico">
-      {% endif %}
-    </div>
-    <div class=scheme>{{scheme}}:/</div>
-    <div class=netloc>{% if netloc %}/{{netloc}}{% endif %}</div>
-    <div class=path>{{path}}</div>
-    <div class=parameters>{% if parameters %};{{parameters}}{% endif %}</div>
-    <div class=query>{% if query %}?{{query}}{% endif %}</div>
-    <div class=section>{% if section %}#{{section}}{% endif %}</div>
-  </a>
-  {% endfor %}
-</div>
+<h2>{{header}}</h2>
+{% for url in urls %}
+<a href="{{url}}" data-index={{loop.index0}}
+   class="url-container {{loop.cycle("odd", "even")}}">
+  {% set scheme, netloc, path, parameters, query, section = urlparse(url) -%}
+  <div class=favicon>
+    {% if scheme in ["file", "qute"] %}
+    <img class=local>
+    {% else %}
+    <img src="https://external-content.duckduckgo.com/ip3/{{netloc}}.ico">
+    {% endif %}
+  </div>
+  <div class=scheme>{{scheme}}:/</div>
+  <div class=netloc>{% if netloc %}/{{netloc}}{% endif %}</div>
+  <div class=path>{{path}}</div>
+  <div class=parameters>{% if parameters %};{{parameters}}{% endif %}</div>
+  <div class=query>{% if query %}?{{query}}{% endif %}</div>
+  <div class=section>{% if section %}#{{section}}{% endif %}</div>
+</a>
+{% endfor %}
