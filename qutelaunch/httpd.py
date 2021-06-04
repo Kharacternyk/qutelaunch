@@ -1,3 +1,4 @@
+import logging
 import re
 from multiprocessing import Process
 from time import time
@@ -32,6 +33,7 @@ def serve(
     )
 
     app = Flask("qutelaunch")
+    logging.getLogger("werkzeug").disabled = True
 
     @app.route("/")
     def startpage():
