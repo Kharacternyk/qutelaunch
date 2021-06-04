@@ -17,8 +17,8 @@ def init(
     history_path = config.datadir / "history.sqlite"
     bookmarks_path = config.configdir / "bookmarks" / "urls"
 
-    c.url.start_pages = "http://127.0.0.1:5000/"
-    c.url.default_page = "http://127.0.0.1:5000/"
+    c.url.start_pages = "http://127.0.0.1:5000/index.html"
+    c.url.default_page = "http://127.0.0.1:5000/index.html"
 
     serve(
         history_path,
