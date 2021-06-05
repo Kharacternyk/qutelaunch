@@ -11,6 +11,5 @@ setup(
     keywords="qutebrowser startpage",
     packages=find_packages(),
     package_data={"qutelaunch": ["templates/*"]},
-    install_requires=["jinja2", "dataclasses; python_version < '3.7'"],
-    tests_require=["pytest", "hypothesis"],
+    install_requires=["flask", "dataclasses; python_version < '3.7'"],
 )
