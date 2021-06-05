@@ -4,7 +4,10 @@ from urllib.parse import urlparse
 
 from flask import Flask
 from flask import render_template
+from flask import request
 from flask import Response
+
+from .query import as_glob
 
 
 def serve(
@@ -30,6 +33,7 @@ def serve(
             list_length,
             exclude_regexes=exclude_regexes,
             since=time() - recent_timespan,
+            glob=as_glob(request.args["query"]),
         )
         return render_template(
             "column.html",
@@ -41,7 +45,9 @@ def serve(
     @app.route("/most-visited.html")
     def serve_most_visited():
         most_visited_urls = web_history.get_most_visited_urls(
-            list_length, exclude_regexes=exclude_regexes
+            list_length,
+            exclude_regexes=exclude_regexes,
+            glob=as_glob(request.args["query"]),
         )
         return render_template(
             "column.html",
