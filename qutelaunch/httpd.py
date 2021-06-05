@@ -8,21 +8,16 @@ from flask import Flask
 from flask import render_template
 from flask import Response
 
-from .bookmarks import Bookmarks
-from .web_history import WebHistory
-
 
 def serve(
-    history_path,
-    bookmarks_path,
+    web_history,
+    bookmarks,
     list_length,
     color_scheme,
     exclude_patterns,
     recent_timespan,
 ):
     exclude_regexes = (re.compile(pattern) for pattern in exclude_patterns)
-    web_history = WebHistory(history_path)
-    bookmarks = Bookmarks(bookmarks_path)
     app = Flask("qutelaunch", static_url_path="")
     logging.getLogger("werkzeug").disabled = True
 
