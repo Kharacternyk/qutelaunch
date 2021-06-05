@@ -5,6 +5,7 @@ from dataclasses import dataclass
 class ColorScheme:
     page_bg: str = "#282828"
     header_fg: str = "#928374"
+    query_fg: str = "#fbf1c7"
     url_odd_bg: str = "#3c3836"
     url_odd_fg: str = "#fbf1c7"
     url_even_bg: str = "#504945"

@@ -1,8 +1,11 @@
 import fetchColumns from "./fetchColumns.mjs";
 import loopElement from "./loopElement.mjs";
+import QueryContainer from "./queryContainer.mjs";
 import { nthOrLastChild } from "./utils.mjs";
 
 fetchColumns();
+
+const queryContainer = new QueryContainer("query-container");
 
 window.addEventListener("keydown", event => {
     const index = Number(document.activeElement.dataset.index) + 1;
@@ -22,5 +25,8 @@ window.addEventListener("keydown", event => {
     if (handler) {
         event.preventDefault();
         handler();
+    } else if (queryContainer.handleKey(event.key)){
+        event.preventDefault();
+        fetchColumns(queryContainer.query);
     }
 });
