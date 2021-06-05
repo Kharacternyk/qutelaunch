@@ -1,5 +1,4 @@
 import logging
-import re
 from multiprocessing import Process
 from time import time
 from urllib.parse import urlparse
@@ -14,10 +13,9 @@ def serve(
     bookmarks,
     list_length,
     color_scheme,
-    exclude_patterns,
+    exclude_regexes,
     recent_timespan,
 ):
-    exclude_regexes = (re.compile(pattern) for pattern in exclude_patterns)
     app = Flask("qutelaunch", static_url_path="")
     logging.getLogger("werkzeug").disabled = True
 

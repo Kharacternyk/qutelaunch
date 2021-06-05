@@ -1,3 +1,5 @@
+import re
+
 from .bookmarks import Bookmarks
 from .color_scheme import ColorScheme
 from .httpd import serve
@@ -18,6 +20,7 @@ def init(
 ):
     web_history = WebHistory(config.datadir / "history.sqlite")
     bookmarks = Bookmarks(config.configdir / "bookmarks" / "urls")
+    exclude_regexes = (re.compile(pattern) for pattern in exclude_patterns)
 
     c.url.start_pages = "http://127.0.0.1:5000/index.html"
     c.url.default_page = "http://127.0.0.1:5000/index.html"
@@ -27,6 +30,6 @@ def init(
         bookmarks,
         list_length,
         color_scheme,
-        exclude_patterns,
+        exclude_regexes,
         recent_timespan,
     )
