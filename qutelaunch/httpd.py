@@ -1,4 +1,3 @@
-import logging
 from multiprocessing import Process
 from time import time
 from urllib.parse import urlparse
@@ -17,7 +16,6 @@ def serve(
     recent_timespan,
 ):
     app = Flask("qutelaunch", static_url_path="")
-    logging.getLogger("werkzeug").disabled = True
 
     @app.route("/styles.css")
     def serve_styles():

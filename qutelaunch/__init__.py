@@ -1,3 +1,4 @@
+import logging
 import re
 
 from .bookmarks import Bookmarks
@@ -21,6 +22,8 @@ def init(
     web_history = WebHistory(config.datadir / "history.sqlite")
     bookmarks = Bookmarks(config.configdir / "bookmarks" / "urls")
     exclude_regexes = (re.compile(pattern) for pattern in exclude_patterns)
+
+    logging.getLogger("werkzeug").disabled = True
 
     c.url.start_pages = "http://127.0.0.1:5000/index.html"
     c.url.default_page = "http://127.0.0.1:5000/index.html"
