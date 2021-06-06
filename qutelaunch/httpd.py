@@ -56,10 +56,11 @@ def serve(
 
     @app.route("/bookmarks.html")
     def serve_bookmarks():
+        bookmarks_urls = bookmarks.get_urls(list_length, glob=request.args["query"])
         return render_template(
             "column.html",
             header="Bookmarks",
-            urls=bookmarks.get_urls(glob=request.args["query"]),
+            urls=bookmarks_urls,
             urlparse=urlparse,
         )
 
