@@ -8,7 +8,7 @@ class Bookmarks:
     def get_urls(self, *, glob="*"):
         # TODO do not read the file if mtime hasn't changed
         with open(self._path, "r") as f:
-            for url_and_title in f.read().splitlines():
+            for url_and_title in f:
                 url = url_and_title.split()[0]
                 if fnmatch(url, glob):
                     yield url
