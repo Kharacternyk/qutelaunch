@@ -9,6 +9,7 @@ from flask import Response
 
 
 def serve(
+    port,
     web_history,
     bookmarks,
     list_length,
@@ -64,4 +65,13 @@ def serve(
             urlparse=urlparse,
         )
 
-    Process(target=(lambda: app.run()), daemon=True).start()
+    Process(target=_run, args=(app, port), daemon=True).start()
+
+
+def _run(app, port):
+    try:
+        app.run(port=port)
+    except OSError as e:
+        # TODO Is this specific to UNIX?
+        if e.errno != 98:
+            raise

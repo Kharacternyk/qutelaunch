@@ -13,6 +13,7 @@ def init(
     config,
     c,
     *,
+    port=5000,
     list_length=20,
     color_scheme=ColorScheme(),
     exclude_patterns=(),
@@ -25,10 +26,11 @@ def init(
 
     logging.getLogger("werkzeug").disabled = True
 
-    c.url.start_pages = "http://127.0.0.1:5000/index.html"
-    c.url.default_page = "http://127.0.0.1:5000/index.html"
+    c.url.start_pages = f"http://127.0.0.1:{port}/index.html"
+    c.url.default_page = c.url.start_pages
 
     serve(
+        port,
         web_history,
         bookmarks,
         list_length,
