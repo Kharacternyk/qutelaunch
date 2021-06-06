@@ -17,7 +17,7 @@ export default class QueryContainer {
             this.sync();
             return true;
         }
-        if (/^[-*a-zA-Z.:\/0-9]$/.test(key)) {
+        if (key.length === 1) {
             this.query += key;
             this.sync();
             return true;

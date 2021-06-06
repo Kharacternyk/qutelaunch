@@ -1,5 +1,10 @@
-export default function fetchColumns(query="") {
+export default function fetchColumns(query) {
     const columnNames = ["recent", "most-visited", "bookmarks"];
+    if (query === undefined || query === "") {
+        query = "*";
+    } else {
+        query = "*" + query + "*";
+    }
     for (const columnName of columnNames) {
         const target = document.getElementById(columnName);
         fetch(columnName + ".html?query=" + query)
