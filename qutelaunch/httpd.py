@@ -61,7 +61,7 @@ def serve(
         return render_template(
             "column.html",
             header="Bookmarks",
-            urls=bookmarks.urls,
+            urls=bookmarks.get_urls(glob=as_glob(request.args["query"])),
             urlparse=urlparse,
         )
 

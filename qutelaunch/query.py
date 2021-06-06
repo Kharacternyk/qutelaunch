@@ -1,5 +1,3 @@
-import re
-
 def as_glob(query):
     glob = "*"
     for char in query:
@@ -8,5 +6,6 @@ def as_glob(query):
                 glob += "*"
         else:
             glob += char
-    glob = glob.rstrip("*") + "*"
+    if glob[-1] != "*":
+        glob += "*"
     return glob
