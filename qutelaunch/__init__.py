@@ -13,7 +13,7 @@ def init(
     config,
     c,
     *,
-    port=5000,
+    port=42512,
     list_length=20,
     color_scheme=ColorScheme(),
     exclude_patterns=(),
