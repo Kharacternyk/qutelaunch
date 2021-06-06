@@ -7,12 +7,17 @@ export default class QueryContainer {
         this.element.textContent = this.query
     }
     handleKey(key) {
-        if (key == "Backspace") {
+        if (key === "Backspace") {
             this.query = this.query.slice(0, -1);
             this.sync();
             return true;
         }
-        if (/^[-a-zA-Z.:\/0-9]$/.test(key)) {
+        if (key === " ") {
+            this.query += "*";
+            this.sync();
+            return true;
+        }
+        if (/^[-*a-zA-Z.:\/0-9]$/.test(key)) {
             this.query += key;
             this.sync();
             return true;
