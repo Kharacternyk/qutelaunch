@@ -3,24 +3,47 @@ export default class QueryContainer {
         this.element = document.getElementById(elementId);
         this.query = this.element.textContent = "";
     }
+
     sync() {
         this.element.textContent = this.query
     }
-    handleKey(key) {
-        if (key === "Backspace") {
-            this.query = this.query.slice(0, -1);
-            this.sync();
-            return true;
-        }
-        if (key === " ") {
+
+    appendAsterisk() {
+        if (this.query.length > 0 && this.query.slice(-1) !== "*") {
             this.query += "*";
             this.sync();
-            return true;
+        }
+        return false;
+    }
+
+    appendKey(key) {
+        if (key === "*") {
+            return this.appendAsterix();
+        }
+        this.query += key;
+        this.sync();
+        return true;
+    }
+
+    backspace() {
+        if (this.query.length > 0) {
+            const result = this.query.slice(-1) !== "*";
+            this.query = this.query.slice(0, -1);
+            this.sync();
+            return result;
+        }
+        return false;
+    }
+
+    handleKey(key) {
+        if (key === "Backspace") {
+            return this.backspace();
+        }
+        if (key === " ") {
+            return this.appendAsterisk();
         }
         if (key.length === 1) {
-            this.query += key;
-            this.sync();
-            return true;
+            return this.appendKey(key);
         }
         return false;
     }
