@@ -10,6 +10,6 @@ setup(
     author="Nazar Vinnichuk",
     keywords="qutebrowser startpage",
     packages=find_packages(),
-    package_data={"qutelaunch": ["templates/*"]},
+    package_data={"qutelaunch": ["templates/*", "static/*", "static/modules/*"]},
     install_requires=["flask", "dataclasses; python_version < '3.7'"],
 )
