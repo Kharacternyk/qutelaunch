@@ -1,5 +1,4 @@
 import sqlite3
-from collections import Counter
 
 
 class WebHistory:
@@ -10,17 +9,19 @@ class WebHistory:
     def _db(self):
         return sqlite3.connect(self._uri, uri=True).cursor()
 
-    def get_most_visited_urls(self, n, *, exclude_regexes=(), since=0, glob="*"):
+    def get_most_visited_urls(self, n, *, glob="*", exclude_globs=(), since=0):
         query = """
             SELECT url
             FROM history
             WHERE atime > ?
             AND url GLOB ?
         """
-        urls = (row[0] for row in self._db.execute(query, (since, glob)))
-        counter = Counter()
-        for url in urls:
-            if not any(regex.fullmatch(url) for regex in exclude_regexes):
-                counter[url] += 1
-        n_most_visited = (url for url, hits in counter.most_common(n))
-        return n_most_visited
+        query += "AND url NOT GLOB ?" * len(exclude_globs)
+        query += """
+            GROUP BY url
+            ORDER BY COUNT(url) DESC
+            LIMIT ?
+        """
+        sql_parameters = since, glob, *exclude_globs, n
+        urls = (row[0] for row in self._db.execute(query, sql_parameters))
+        return urls

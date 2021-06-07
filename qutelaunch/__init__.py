@@ -1,5 +1,4 @@
 import logging
-import re
 
 from .bookmarks import Bookmarks
 from .color_scheme import ColorScheme
@@ -16,13 +15,12 @@ def init(
     port=42512,
     list_length=20,
     color_scheme=ColorScheme(),
-    exclude_patterns=(),
+    exclude_globs=(),
     recent_timespan=(60 * 60 * 24 * 7),
     **kwargs,
 ):
     web_history = WebHistory(config.datadir / "history.sqlite")
     bookmarks = Bookmarks(config.configdir / "bookmarks" / "urls")
-    exclude_regexes = (re.compile(pattern) for pattern in exclude_patterns)
 
     logging.getLogger("werkzeug").disabled = True
 
@@ -35,6 +33,6 @@ def init(
         bookmarks,
         list_length,
         color_scheme,
-        exclude_regexes,
+        exclude_globs,
         recent_timespan,
     )

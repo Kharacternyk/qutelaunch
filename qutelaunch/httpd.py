@@ -14,7 +14,7 @@ def serve(
     bookmarks,
     list_length,
     color_scheme,
-    exclude_regexes,
+    exclude_globs,
     recent_timespan,
 ):
     app = Flask("qutelaunch", static_url_path="")
@@ -30,7 +30,7 @@ def serve(
     def serve_recent():
         recent_urls = web_history.get_most_visited_urls(
             list_length,
-            exclude_regexes=exclude_regexes,
+            exclude_globs=exclude_globs,
             since=time() - recent_timespan,
             glob=request.args["query"],
         )
@@ -45,7 +45,7 @@ def serve(
     def serve_most_visited():
         most_visited_urls = web_history.get_most_visited_urls(
             list_length,
-            exclude_regexes=exclude_regexes,
+            exclude_globs=exclude_globs,
             glob=request.args["query"],
         )
         return render_template(
