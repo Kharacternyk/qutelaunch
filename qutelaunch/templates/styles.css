@@ -54,12 +54,12 @@ body {
   text-decoration: none;
 }
 
-.url-container.odd {
+.url-container:nth-child(2n+1) {
   background-color: {{color_scheme.url_odd_bg}};
   color: {{color_scheme.url_odd_fg}};
 }
 
-.url-container.even {
+.url-container:nth-child(2n) {
   background-color: {{color_scheme.url_even_bg}};
   color: {{color_scheme.url_even_fg}};
 }
