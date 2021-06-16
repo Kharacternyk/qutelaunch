@@ -54,12 +54,16 @@ body {
   text-decoration: none;
 }
 
-.url-container:nth-child(2n+1) {
+/* The n-expressions account for the column header,
+ * which is the first child. Hence the shift by one.
+ */
+
+.url-container:nth-child(2n) {
   background-color: {{color_scheme.url_odd_bg}};
   color: {{color_scheme.url_odd_fg}};
 }
 
-.url-container:nth-child(2n) {
+.url-container:nth-child(2n+1) {
   background-color: {{color_scheme.url_even_bg}};
   color: {{color_scheme.url_even_fg}};
 }
