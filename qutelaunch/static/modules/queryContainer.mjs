@@ -1,30 +1,28 @@
 export default class QueryContainer {
-    constructor(elementId) {
+    constructor(elementId, callback) {
         this.element = document.getElementById(elementId);
         this.query = this.element.textContent = "";
+        this.callback = callback;
     }
-
-    sync() {
+    //logically 
+    sync(queryLogicallyChanged=true) {
         this.element.textContent = this.query
     }
-
     appendAsterisk() {
         if (this.query.length > 0 && this.query.slice(-1) !== "*") {
             this.query += "*";
             this.sync();
         }
-        return false;
     }
-
-    appendKey(key) {
+    appendCharacter(key) {
         if (key === "*") {
-            return this.appendAsterix();
+            this.appendAsterix();
+        } else {
+            this.query += key;
+            this.sync();
+            this.callback();
         }
-        this.query += key;
-        this.sync();
-        return true;
     }
-
     backspace() {
         if (this.query.length > 0) {
             const result = this.query.slice(-1) !== "*";
@@ -34,7 +32,6 @@ export default class QueryContainer {
         }
         return false;
     }
-
     handleKey(key) {
         if (key === "Backspace") {
             return this.backspace();
